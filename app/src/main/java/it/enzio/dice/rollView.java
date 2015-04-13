@@ -125,7 +125,7 @@ public class rollView extends Activity implements View.OnClickListener, View.OnT
                         .playOn(findViewById(R.id.textView));
             }else{
                 Random random = new Random();
-                int rnd = random.nextInt(Integer.parseInt(number.getText().toString()) + 1);
+                int rnd = random.nextInt(Integer.parseInt(number.getText().toString())) + 1;
                 number.setText(Integer.toString(rnd));
                 YoYo.with(Techniques.FlipInX)
                         .duration(700)
