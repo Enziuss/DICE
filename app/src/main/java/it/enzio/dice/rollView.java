@@ -17,27 +17,34 @@ import java.util.Random;
 public class rollView extends Activity implements View.OnClickListener, View.OnTouchListener {
 	TextView number;
 	ImageView lock;
+    ImageView img;
 	GestureDetector myG;
 	private static final int SWIPE_MIN_DISTANCE = 120;
 	private static final int SWIPE_THRESHOLD_VELOCITY = 200;
 	boolean locked;
+    boolean inizialized = false;
 	int lockNumber;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_roll);
-		ImageView img = (ImageView) findViewById(R.id.imageView);
+		img = (ImageView) findViewById(R.id.imageView);
 		lock = (ImageView) findViewById(R.id.imageView2);
 		number = (TextView)findViewById(R.id.textView);
 		img.setOnClickListener(this);
-		myG = new GestureDetector(this, new Gesture());
-		img.setOnTouchListener(this);
+
+
 	}
 
 	@Override
 	public void onClick(View v) {
-
+        if(!inizialized) {
+            splash();
+            myG = new GestureDetector(this, new Gesture());
+            img.setOnTouchListener(this);
+            inizialized = true;
+        }
 	}
 
 	@Override
@@ -74,7 +81,7 @@ public class rollView extends Activity implements View.OnClickListener, View.OnT
 				return false; // Right to left
 			}  else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
                 int x = Integer.parseInt(number.getText().toString());
-                if (x == 2){
+                if (x <= 2){
                     YoYo.with(Techniques.Shake)
                         .duration(700)
                         .playOn(findViewById(R.id.fr));
@@ -134,5 +141,13 @@ public class rollView extends Activity implements View.OnClickListener, View.OnT
 			return super.onSingleTapConfirmed(e);
 		}
 	}
-
+       public void splash()  {
+           YoYo.with(Techniques.FlipOutX)
+                   .duration(700)
+                   .playOn(findViewById(R.id.textView));
+           number.setText(Integer.toString(2));
+           YoYo.with(Techniques.FlipInX)
+                   .duration(700)
+                   .playOn(findViewById(R.id.textView));
+       }
 }
