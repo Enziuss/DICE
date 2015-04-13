@@ -1,6 +1,7 @@
 package it.enzio.dice;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -33,11 +34,9 @@ public class rollView extends Activity implements View.OnClickListener, View.OnT
 		lock = (ImageView) findViewById(R.id.imageView2);
 		number = (TextView)findViewById(R.id.textView);
 		img.setOnClickListener(this);
-
-
 	}
 
-	@Override
+    @Override
 	public void onClick(View v) {
         if(!inizialized) {
             splash();
@@ -141,7 +140,7 @@ public class rollView extends Activity implements View.OnClickListener, View.OnT
 			return super.onSingleTapConfirmed(e);
 		}
 	}
-       public void splash()  {
+    public void splash()  {
            YoYo.with(Techniques.FlipOutX)
                    .duration(700)
                    .playOn(findViewById(R.id.textView));
@@ -150,4 +149,8 @@ public class rollView extends Activity implements View.OnClickListener, View.OnT
                    .duration(700)
                    .playOn(findViewById(R.id.textView));
        }
+    public void help(View v){
+        Intent i = new Intent(this, help.class);
+        startActivity(i);
+    }
 }
